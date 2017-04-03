@@ -1,53 +1,49 @@
 <script type="text/javascript">
 
-     function signUp() 
-     {
+    function signUp() {
         var password1 = document.getElementByID("password1");
         var password2 = document.getElementByID("password2");
         var user = document.getElementByID("username");
 
-        if(password1 == password2)
-        {
-        
+        if (password1 == password2) {
+
             $.ajax({
                 type: "GET",
                 url: "signUp.js",
                 timeout: 2000,
-                data: { username: user, password: password1},
-                success: function(data) {
-                    
+                data: {username: user, password: password1},
+                success: function (data) {
+
                     alert('Success!');
                     location.replace("login.html");
                 },
-                error: function(jqXHR, textStatus, err) {
+                error: function (jqXHR, textStatus, err) {
                     //show error message
-                    alert('text status '+textStatus+', err '+err);
+                    alert('text status ' + textStatus + ', err ' + err);
                 }
             });
         }
-        else
-        {
+        else {
             alert("Your passwords don't match");
         }
-     }
-    
+    }
+
 </script>
 
 <div class="container">
-    <form action="signUp.js" method="post">
+    <form action="/user_signup" method="post">
         <div class="page-header">
             <h3>Sign Up</h3>
         </div>
-        <h5 style = "margin:0;">Username</h5>
-        <input placeholder="Enter a Username" type="text" name="username" id="username" required>
+        <input placeholder="Enter a Username" type="text" name="username" required>
         <br><br>
-        <h5 style = "margin:0;">Password</h5>
-        <input placeholder="Enter a Password" type="password" name="password" id = "password1" required>
+
+        <input placeholder="Enter a Password" type="password" name="password" required>
         <br><br>
-        <h5 style = "margin:0;">Re-Entered Password</h5>
-        <input placeholder="Enter a Password" type="password" name="password" id="password2" required>
-        <br><br>
-        <input type="submit" class="btn btn-success" id="submit">
+        <!--<h5>Re-Entered Password</h5>-->
+        <!--<input placeholder="Enter a Password" type="password" name="password" required>-->
+        <!--<br><br>-->
+        <input type="submit" class="btn btn-success">
     </form>
 
     <p id="desc"></p>
