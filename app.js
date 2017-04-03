@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret: 'password', saveUninitialized: false, resave: false}));
+
 //The session uses memory storage!
 
 app.use('/', index);
