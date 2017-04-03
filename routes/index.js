@@ -8,7 +8,7 @@ var url = 'mongodb://localhost:27017/test';
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'chatterBox'});
 });
 
 router.get('/login', function (req, res, next) {
@@ -20,7 +20,7 @@ router.get('/signup', function (req, res, next) {
 });
 
 router.get('/home', function (req, res, next) {
-   res.render('home');
+    res.render('home');
 });
 
 router.post('/user_signup', function (req, res, next) {
@@ -32,34 +32,26 @@ router.post('/user_signup', function (req, res, next) {
     mongo.connect(url, function (err, db) {
         assert.equal(null, err);
 
-        var isValue = 1;
-        db.collection('user-data').count({ 'user.username': user.username },
+        db.collection('user-data').count({username: user.username},
             function (err, count) {
-            console.log("Count: " +count);
-            // console.log("Username: "+ username);
-            console.log("User.username: "+user.username);
-        });
-        // console.log("start: "+temp+" end");
-
-        // var isValue = 1;
-
-        if(isValue == 0) {
-            db.collection('user-data').insertOne(user, function () {
-                assert.equal(null, err);
-                console.log("User inserted");
-                db.close();
-                res.redirect('/login');
+            //Checking if a user exists...
+                if (count == 0) {
+                    db.collection('user-data').insertOne(user, function () {
+                        assert.equal(null, err);
+                        console.log("User inserted");
+                        db.close();
+                        res.redirect('/login');
+                    });
+                    //If not lets redirect to the same page.
+                } else {
+                    //Renders page w/ message
+                    res.render('signup', { msg: "This username already exists! Try a new username."});
+                }
             });
-        } else {
-            console.log("Username already exists!");
-            res.render('signup');
-        }
     });
 
 
 });
-
-
 
 
 router.get('/userLogin', function (req, res, next) {
@@ -67,7 +59,7 @@ router.get('/userLogin', function (req, res, next) {
 
     mongo.connect(url, function (err, db) {
         assert.equal(null, err);
-        var cursor = db.collection('user-data').find({username : 'Sovann'});
+        var cursor = db.collection('user-data').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
             resultArr.push(doc);
