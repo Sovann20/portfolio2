@@ -1,12 +1,10 @@
-
-
 <!--Change the href later, right now they do nothing-->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#top">ChatterBox</a>
+            <a class="navbar-brand" href="#top">chatterBox</a>
         </div>
-        
+
 
         <ul class="nav navbar-nav navbar-right">
             <form action="/logout">
@@ -20,45 +18,38 @@
     </div>
 </nav>
 
+<div class="container-fluid">
+    <div class="col-sm-3 col-md-2 sidebar">
+        <h3> chatters:</h3>
+        <ul class="nav nav-sidebar">
+            <li><span class="glyphicon glyphicon-user "> Person 1</span></li>
+            <li><span class="glyphicon glyphicon-user "> Person 2</span></li>
+            <li><span class="glyphicon glyphicon-user "> sqqq</span></li>
+        </ul>
+        <br><br>
+    </div>
+<div class="col-sm-9">
+    <h1>chatterBox</h1>
+    <hr>
+    <div class="chat_log">
+        <p class="alert alert-info">You: Hi</p>
+        <p class="alert">Person1: How is life</p>
+        <p class="alert alert-info">You: good!</p>
+    </div>
 
-<div style="width: 100%">
-<div style="float:right; width: 80%">
-<div class="container">
-    <div id="top">
-        <h1>Posts Page</h1>
+    <br><br><br>
+</div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <hr>
-
-        <div id="post_area">
-        </div>
-        <br><br><br>
+        <h3>Send a message:</h3>
+        <form id="send_message">
+            <input class="form-control" placeholder="To: " type="text">
+            <br>
+            <textarea placeholder="Message" class="form-control" id="message_to" rows="5" required></textarea>
+            <br>
+            <input type="submit" class="btn btn-success" value="Send" >
+        </form>
     </div>
 </div>
-
-
-<div class="container">
-    <hr>
-    <h3>Send a message:</h3>
-    <form id="send_message">
-        <textarea placeholder="Message" class="form-control" id="message_to" rows="5" required></textarea>
-        <br>
-        <input type="submit" class="btn btn-success" value="Send" onclick="send_message()">
-    </form>
-</div>
-</div>
-<div style="float:right; width:20%; height:100%;  border-right: solid; display: block;">
-<div class="container" style ="height:100%;overflow: auto">
-    <h3>chatters:</h3>
-    <ul style =" display: block;  list-style-type: none;">
-        <li>Person 1</li>
-        <li>Person 2</li>
-        <li>sqqq</li>
-    </ul>
-
-    <br><br>
-</div>
-    
-</div>
 <br>
-
-<div>
-

@@ -3,11 +3,23 @@
         <h1>chatterBOX</h1>
     </div>
 </div>
+<section>
+    <a href="/userLogin">update!</a>
+    <div>
+        {{# each users }}
+            <article class="users">
+                <div>Username: {{this.username}}</div>
+                <div>Password: {{this.password}}</div>
+            </article>
+            <br>
+        {{/each}}
+    </div>
+</section>
+
 
 <hr>
 <h4>If you don't have an account, sign up!</h4>
 <a href="/signup"><input type="button" class="btn btn-default" value="Sign Up"></a>
-
 
 <p id="desc"></p>
 <div class="container">
