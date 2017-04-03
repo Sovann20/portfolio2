@@ -19,10 +19,6 @@ router.get('/signup', function (req, res, next) {
     res.render('signup', {title: 'Sign up'});
 });
 
-router.get('/home', function (req, res, next) {
-    res.render('home');
-});
-
 router.post('/user_signup', function (req, res, next) {
     var user = {
         username: req.body.username,
@@ -66,6 +62,22 @@ router.get('/userLogin', function (req, res, next) {
         }, function () {
             db.close();
             res.render('login', {users: resultArr});
+        });
+    });
+});
+
+router.get('/home', function (req, res, next) {
+    var resultArr = [];
+
+    mongo.connect(url, function (err, db) {
+        assert.equal(null, err);
+        var cursor = db.collection('user-data').find();
+        cursor.forEach(function (doc, err) {
+            assert.equal(null, err);
+            resultArr.push(doc);
+        }, function () {
+            db.close();
+            res.render('home', {users: resultArr});
         });
     });
 });

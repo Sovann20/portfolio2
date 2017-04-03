@@ -20,13 +20,14 @@
 
 <div class="container-fluid">
     <div class="col-sm-3 col-md-2 sidebar">
-            <h3> chatters:</h3>
-            <ul class="nav nav-sidebar">
-                <li><span class="glyphicon glyphicon-user "> Person 1</span></li>
-                <li><span class="glyphicon glyphicon-user "> Person 2</span></li>
-                <li><span class="glyphicon glyphicon-user "> sqqq</span></li>
-            </ul>
-            <br><br>
+        <h3> chatters:</h3>
+        <ul class="nav nav-sidebar">
+            {{# each users }}
+                <li><span class="glyphicon glyphicon-user ">  {{this.username}} </span></li>
+            {{/each}}
+            <br>
+        </ul>
+        <br><br>
     </div>
     <div class="col-sm-9">
         <h1>chatterBox</h1>
@@ -53,3 +54,11 @@
     </div>
 </div>
 <br>
+
+<script>
+
+//        $('.li').hover(function () {
+//            $(this).backgroundColor("azure");
+//        });
+
+</script>
