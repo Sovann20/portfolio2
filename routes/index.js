@@ -74,6 +74,7 @@ router.get('/home', function (req, res, next) {
         var cursor = db.collection('user-data').find();
         cursor.forEach(function (doc, err) {
             assert.equal(null, err);
+
             resultArr.push(doc);
         }, function () {
             db.close();
@@ -100,12 +101,11 @@ router.get('/getConvo', function (req, res, next) {
             if((doc.user2 == user.user2 && doc.user1 == sessionStorage) || (doc.user2 == sessionStorage && doc.user1 == user.user2))
             {
                 resultArr.push(doc.chatLog);
-
             }
 
         }, function () {
             db.close();
-            res.render('home', {users: resultArr});
+            res.render('home', {chatLog: resultArr});
         });
     });
 });
