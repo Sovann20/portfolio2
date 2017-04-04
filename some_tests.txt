@@ -1,0 +1,15 @@
+Add the following code to 'login.hbs' to check if your database is working..
+
+    <section>
+        <a href="/userLogin">update!</a>
+    <div>
+        {{# each users }}
+            <article class="users">
+                <div>Username: {{this.username}}</div>
+                <div>Password: {{this.password}}</div>
+            </article>
+            <br>
+        {{/each}}
+    </div>
+    </section>
+

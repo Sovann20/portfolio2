@@ -8,15 +8,15 @@ var url = 'mongodb://localhost:27017/test';
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'chatterBox'});
+    res.render('index');
 });
 
 router.get('/login', function (req, res, next) {
-    res.render('login', {title: 'Login'});
+    res.render('login');
 });
 
 router.get('/signup', function (req, res, next) {
-    res.render('signup', {title: 'Sign up'});
+    res.render('signup');
 });
 
 router.post('/user_signup', function (req, res, next) {
@@ -30,7 +30,7 @@ router.post('/user_signup', function (req, res, next) {
 
         db.collection('user-data').count({username: user.username},
             function (err, count) {
-            //Checking if a user exists...
+                //Checking if a user exists...
                 if (count == 0) {
                     db.collection('user-data').insertOne(user, function () {
                         assert.equal(null, err);
@@ -38,31 +38,38 @@ router.post('/user_signup', function (req, res, next) {
                         db.close();
                         res.redirect('/login');
                     });
-                    //If not lets redirect to the same page.
                 } else {
                     //Renders page w/ message
-                    res.render('signup', { msg: "This username already exists! Try a new username."});
+                    res.render('signup', {msg: "This username already exists! Try a new username."});
                 }
             });
     });
-
-
 });
 
 
-router.get('/userLogin', function (req, res, next) {
-    var resultArr = [];
+router.post('/user_login', function (req, res, next) {
+    var user = {
+        username: req.body.username,
+        password: req.body.password
+    }; //item to insert...
+
+    // console.log("User: " + user.username);
+    // console.log("Pass: " + user.password);
 
     mongo.connect(url, function (err, db) {
         assert.equal(null, err);
-        var cursor = db.collection('user-data').find();
-        cursor.forEach(function (doc, err) {
-            assert.equal(null, err);
-            resultArr.push(doc);
-        }, function () {
-            db.close();
-            res.render('login', {users: resultArr});
-        });
+
+        db.collection('user-data').count({username: user.username, password: user.password},
+            function (err, count) {
+                console.log(count);
+                if (count > 0) {
+                    //we need add sessions
+                    res.redirect('/home');
+                } else {
+                    //Renders page w/ message
+                    res.render('login', {msg: "You have entered the wrong username or password!"});
+                }
+            });
     });
 });
 

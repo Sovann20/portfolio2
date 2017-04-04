@@ -20,11 +20,13 @@
 
 <div class="container-fluid">
     <div class="col-sm-3 col-md-2 sidebar">
-        <h3> chatters:</h3>
+        <h2> chatters:</h2>
         <ul class="nav nav-sidebar">
+            <div class="container-fluid">
             {{# each users }}
-                <li><span class="glyphicon glyphicon-user ">  {{this.username}} </span></li>
+                <li><span class="glyphicon glyphicon-user"></span>  {{this.username}}</li>
             {{/each}}
+            </div>
             <br>
         </ul>
         <br><br>

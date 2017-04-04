@@ -2,14 +2,36 @@
     <div class="page-header">
         <h1>chatterBOX</h1>
     </div>
-</div>
 
-<hr>
-<h4>If you don't have an account, sign up!</h4>
-<a href="/signup"><input type="button" class="btn btn-default" value="Sign Up"></a>
+    <form class="form-inline" action="/user_login" method="post">
+        <input type="text" class="form-control" placeholder="Your username" name="username">
+        <br>
+        <br>
+        <input type="text" class="form-control" placeholder="Your password" name="password">
+        <br>
+        <br>
+        <input type="submit" class="btn btn-success" value="Login">
+    </form>
+    <br>
+    <br>
 
-<p id="desc"></p>
-<div class="container">
-    <br><br><br>
+    {{#if msg }}
+        <br><br><br>
+        <div class="alert alert-warning alert-danger show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Uh oh! </strong>{{ msg }}
+        </div>
+    {{/if}}
+    <br>
+
+    <hr>
+    <h4>If you don't have an account, sign up!</h4>
+    <a href="/signup"><input type="button" class="btn btn-default" value="Sign Up"></a>
+    <br>
+    <br>
+    <br>
     <p>Created by Sam &amp; Sovann</p>
+
 </div>
