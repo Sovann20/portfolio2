@@ -8,4 +8,14 @@
     <br><br>
     <a href="/signup"><button class="btn btn-default">Sign up</button></a>
 
+    {{#if msg }}
+        <br><br><br>
+        <div class="alert alert-warning alert-success show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ msg }}<strong> Goodbye!</strong>
+        </div>
+    {{/if}}
+
 </div>

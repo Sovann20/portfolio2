@@ -11,4 +11,11 @@
 li:hover{
     background-color: darkcyan;
     color: white;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+.nav-sidebar{
+    border-radius: 10px;
+    background-color: whitesmoke;
 }

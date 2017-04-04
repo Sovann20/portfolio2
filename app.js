@@ -5,8 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
-// var validator = require('express-validator');
-// var sessison = require('express-session');
+var session = require('express-session');
 
 
 var index = require('./routes/index');
@@ -24,11 +23,10 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(validator());
 app.use(cookieParser());
+app.use(session({ resave: true, saveUninitialized: false, secret: 'tiny_rick_bitch!', cookie: { maxAge: 60000 }}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//The session uses memory storage!
 
 app.use('/', index);
 

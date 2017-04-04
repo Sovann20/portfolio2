@@ -1,15 +1,14 @@
-<!--Change the href later, right now they do nothing-->
 <nav class="navbar navbar-default navbar-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand">chatterBox</a>
+            <h2 class="navbar-brand">{{message}}</h2>
         </div>
 
 
         <ul class="nav navbar-nav navbar-right">
             <form action="/logout">
                 <li>
-                    <button type="submit" class="btn btn-danger navbar-btn">
+                    <button type="submit" class="btn btn-danger">
                         <span class="glyphicon glyphicon-log-out"> Logout</span>
                     </button>
                 </li>
@@ -23,9 +22,10 @@
         <h2> chatters:</h2>
         <ul class="nav nav-sidebar">
             <div class="container-fluid">
-            {{# each users }}
-                <li><span class="glyphicon glyphicon-user"></span>  {{this.username}}</li>
-            {{/each}}
+                <br>
+                {{# each users }}
+                    <li>{{this.username}}</li>
+                {{/each}}
             </div>
             <br>
         </ul>
@@ -33,37 +33,85 @@
     </div>
     <div class="col-sm-9">
         <h1>chatterBox</h1>
-        <hr>
-        <div class="chat_log">
-            {{# each chatLog }}
-                <p class="alert alert-white">{{this.user}}:{{this.msg}}</p>
-            {{/chatLog}}
-           <!-- <p class="alert alert-info">You: Hi</p>
-            <p class="alert alert-white">Person1: How is life</p>
-            <p class="alert alert-info">You: good!</p> -->
+        <br>
+        <div class="chat_log" id="chatterBox">
         </div>
-
-        <br><br><br>
     </div>
+    <hr>
+    <br>
 
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <hr>
         <h3>Send a message:</h3>
-        <form id="send_message">
-            <input class="form-control" placeholder="To: " type="text">
-            <br>
-            <textarea placeholder="Message" class="form-control" id="message_to" rows="5" required></textarea>
-            <br>
-            <input type="submit" class="btn btn-success" value="Send">
-        </form>
+        <input class="form-control" placeholder="To: " name="to" id="to" type="text">
+        <br>
+        <textarea placeholder="Message" class="form-control" id="message_to" rows="5" required></textarea>
+        <br>
+        <input type="submit" class="btn btn-success" value="Send" id="send_message">
     </div>
 </div>
 <br>
 
 <script>
 
-//        $('.li').hover(function () {
-//            $(this).backgroundColor("azure");
-//        });
+    $('li').click(function () {
+        $('#to').val(this.innerHTML);
+        var data = JSON.stringify(this.innerHTML);
+
+        $.ajax({
+            type: 'POST',
+            url: '/chat_area',
+            data: data,
+            contentType: "text/json",
+            dataType: 'text',
+            success: function (data) {
+
+//                console.log("Data: "+data);
+
+                if (data == '') {
+                    $('#chatterBox').text("You have no messages from this chatter.");
+                } else {
+                    var json = JSON.parse(data);
+                    var user1 = json[0].User;
+                    $('#chatterBox').text('');
+                    for (var x = 0; x < json.length; ++x) {
+                        if (user1 === json[x].User) {
+                            $('#chatterBox').append('<p class="alert alert-white">'+json[x].User+ ": "
+                                    +json[x].msg + "</p><br>");
+                        }
+                        else{
+                            $('#chatterBox').append('<p class="alert alert-info">'+json[x].User + ": "
+                                    +json[x].msg + "</p><br>");
+                        }
+                    }
+                }
+
+            }
+        });
+    });
+
+
+    $('#send_message').click(function () {
+        var to_data = $('#to').val();
+        var msg_data = $('#message_to').val();
+//        console.log(to_data);
+//        console.log(msg_data);
+
+        var json = {'to': to_data, 'msg': msg_data};
+
+        $.ajax({
+            type: 'POST',
+            url: '/send_message',
+            data: JSON.stringify(json),
+            contentType: "text/json",
+            dataType: 'text',
+            success: function () {
+
+            }
+        });
+
+        $('#to').val('');
+        $('#message_to').val('');
+    });
 
 </script>
