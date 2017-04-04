@@ -35,9 +35,12 @@
         <h1>chatterBox</h1>
         <hr>
         <div class="chat_log">
-            <p class="alert alert-info">You: Hi</p>
+            {{# each chatLog }}
+                <p class="alert alert-white">{{this.user}}:{{this.msg}}</p>
+            {{/chatLog}}
+           <!-- <p class="alert alert-info">You: Hi</p>
             <p class="alert alert-white">Person1: How is life</p>
-            <p class="alert alert-info">You: good!</p>
+            <p class="alert alert-info">You: good!</p> -->
         </div>
 
         <br><br><br>
