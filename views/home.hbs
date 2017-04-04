@@ -56,9 +56,15 @@
 <script>
 
     $('li').click(function () {
+
         $('#to').val(this.innerHTML);
         var data = JSON.stringify(this.innerHTML);
+        updateMsg(data);
 
+    });
+
+
+    function updateMsg(data) {
         $.ajax({
             type: 'POST',
             url: '/chat_area',
@@ -77,19 +83,19 @@
                     $('#chatterBox').text('');
                     for (var x = 0; x < json.length; ++x) {
                         if (user1 === json[x].User) {
-                            $('#chatterBox').append('<p class="alert alert-white">'+json[x].User+ ": "
-                                    +json[x].msg + "</p><br>");
+                            $('#chatterBox').append('<p class="alert alert-white">' + json[x].User + ": "
+                                    + json[x].msg + "</p><br>");
                         }
-                        else{
-                            $('#chatterBox').append('<p class="alert alert-info">'+json[x].User + ": "
-                                    +json[x].msg + "</p><br>");
+                        else {
+                            $('#chatterBox').append('<p class="alert alert-info">' + json[x].User + ": "
+                                    + json[x].msg + "</p><br>");
                         }
                     }
                 }
 
             }
         });
-    });
+    }
 
 
     $('#send_message').click(function () {
@@ -111,7 +117,8 @@
             }
         });
 
-        $('#to').val('');
+        var data = JSON.stringify($('#to').val());
+        updateMsg(data);
         $('#message_to').val('');
     });
 
