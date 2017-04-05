@@ -122,4 +122,11 @@
         $('#message_to').val('');
     });
 
+
+    window.setInterval(function(){
+        var data = JSON.stringify($('#to').val());
+        updateMsg(data)
+        
+    }, 1000);
+
 </script>
